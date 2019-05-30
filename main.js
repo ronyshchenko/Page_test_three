@@ -1,23 +1,17 @@
 'use strict';
 
-function main() { 
-document.querySelector('#submitButton').disabled = true;
-const loginField = document.loginForm.loginField;
-const emailPattern = /^[\p{L}\s'.-]+$/;
+document.addEventListener('DOMContentLoaded', () => {
+let xhr = new XMLHttpRequest();
 
-loginField.addEventListenner('change', () => {
-  if (validateinput(loginField.value, emailPattern)){
-    loginField.classList.add('background-green');
-    loginField.classList.remove('background-red');
-    }else {
-    loginField.classList.remove('background-green');
-    loginField.classList.add('background-red');
-    }
+xhr.open('GET', ' http://my-json-server.typicode.com/mate-academy/literary-blog/articles');
+
+xhr.send();
+
+xhr.onload = function() {
+  if (xhr.status != 200) { 
+    alert(`Error ${xhr.status}: ${xhr.statusText}`); 
+  } else { 
+    alert(`Done, got ${xhr.response.length} bytes`); 
+  }
+};
 });
-}
-
-function vflidateinput(value, pattern) {
-  return value.match(pattern);
-}
-
-window.addEventListenner('load', main);
